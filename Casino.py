@@ -114,7 +114,7 @@ entry = tk.Entry(frame_age, font=("Calibri", 14))
 entry.pack(pady=10)
 bouton = tk.Button(frame_age, text="Valider", command=controle)
 bouton.pack(pady=30)
-
+#pas encore terminé je le mettrai a jour régulièrement
 #affichage texte page principale
 
 Page_garde.mainloop()
