@@ -12,15 +12,15 @@ Gros_titre.config(bg="#6A5ACD", fg="white")
 Gros_titre.config(width=85, height=5)
 Gros_titre.place(x=0, y=0)
 
-regles = tk.Label(Page_garde, text="Pour afficher les regles appuyez sur la touche A du clavier")
+regles = tk.Label(Page_garde, text="Pour afficher les regles appuyez sur la touche H du clavier")
 regles.config(font=("Calibri", 15))  
 regles.config(bg="white", fg="black")
 regles.place(x=500, y=250)
 
 from tkinter import messagebox
-def affiche_règles(a):
-    messagebox.showinfo("Règles", "Bonjour, bienvenue sur le casino en ligne réalisé par Tonin pour découvrir tkinter, dans ce casino tu trouveras trois mini jeux : pile ou face, les gobelets, chiffre aléatoire. Clique sur le bouton du jeu pour le lancer. Pour afficher les proba des jeux appuis sur H")
-Page_garde.bind("a", affiche_règles)
+def affiche_règles(h):
+    messagebox.showinfo("Règles", "Bonjour, bienvenue sur le casino en ligne réalisé par Tonin pour découvrir tkinter, dans ce casino tu trouveras trois mini jeux : pile ou face, les gobelets, chiffre aléatoire. Clique sur le bouton du jeu pour le lancer. Pour afficher les proba des jeux appuis sur J")
+Page_garde.bind("h", affiche_règles)
 
 choix_jeu = tk.Label(Page_garde, text="Choisi ton mini jeu :")
 choix_jeu.config(font=("Calibri", 30))  
@@ -31,6 +31,7 @@ choix_jeu.place(x=600, y=350)
 def valider1():
     global entree1
     global frame_jeu1
+    global bouton
     frame_jeu1 = tk.Frame(Page_garde, width=2000, height=2000)
     frame_jeu1.pack_propagate(False)
     frame_jeu1.config(bg="#FADADD") 
@@ -40,9 +41,9 @@ def valider1():
     Gros_titre.config(bg="#E1AD01", fg="white")  
     Gros_titre.config(width=85, height=5)
     Gros_titre.place(x=0, y=0)
-    demande_age = tk.Label(frame_jeu1, text="Ecris ton choix en lettre minuscule :",font=("Arial",20))
+    demande_age = tk.Label(frame_jeu1, text="Ecris ton choix en lettre minuscule (pile/face):",font=("Arial",20))
     demande_age.config(bg="#FADADD")
-    demande_age.place(x=570,y=300)
+    demande_age.place(x=540,y=300)
     entree1 = tk.Entry(frame_jeu1, font=("Calibri", 30))
     entree1.place(x=600,y=400)
     bouton = tk.Button(frame_jeu1, text="Valider", command=control_jeu1)
@@ -50,21 +51,51 @@ def valider1():
     bouton.place(x=670,y=500)
 
 import random
+import time 
 
 def control_jeu1():
     global entree1
+    global gagne
+    global gagne1
+    global gagne2
+    global perdu
+    global perdu1
+    global perdu2
     texte = entree1.get()
     choix = random.choice(["pile", "face"])
-    if texte == choix:
-        gagne = tk.Label(frame_jeu1,text="Félicitation tu as gagné")
+    if texte != "pile" or texte != "face" :
+        erreur = tk.Label(frame_jeu1,text= "il y a une erreur d'orthographe ou un espace en trop")
+        erreur.config(bg="#FADADD")
+        erreur.config(font=("Calibri", 50)) 
+        erreur.place(x=530,y=700)
+        time.sleep(3)
+        erreur.place_forget()
+    elif texte == choix:
+        gagne = tk.Label(frame_jeu1,text="     Félicitation tu as gagné        ")
         gagne.config(bg="#FADADD")
         gagne.config(font=("Calibri", 30)) 
-        gagne.place(x=580,y=600)
+        gagne.place(x=480,y=700)
+        gagne1 = tk.Label(frame_jeu1,text= str(choix))
+        gagne1.config(bg="#FADADD")
+        gagne1.config(font=("Calibri", 50)) 
+        gagne1.place(x=880,y=600)
+        gagne2 = tk.Label(frame_jeu1,text= "resultat :")
+        gagne2.config(bg="#FADADD")
+        gagne2.config(font=("Calibri", 50)) 
+        gagne2.place(x=530,y=600)
     else:
         perdu = tk.Label(frame_jeu1,text="Dommage tu as perdu retente ta chance")
         perdu.config(bg="#FADADD")
         perdu.config(font=("Calibri", 30)) 
-        perdu.place(x=580,y=600)
+        perdu.place(x=480,y=700)
+        perdu1 = tk.Label(frame_jeu1,text= str(choix))
+        perdu1.config(bg="#FADADD")
+        perdu1.config(font=("Calibri", 50)) 
+        perdu1.place(x=880,y=600)
+        perdu2 = tk.Label(frame_jeu1,text= "resultat :")
+        perdu2.config(bg="#FADADD")
+        perdu2.config(font=("Calibri", 50)) 
+        perdu2.place(x=530,y=600)
     
 def valider2():
     frame_jeu2 = tk.Frame(Page_garde, width=2000, height=2000)
@@ -114,7 +145,9 @@ entry = tk.Entry(frame_age, font=("Calibri", 14))
 entry.pack(pady=10)
 bouton = tk.Button(frame_age, text="Valider", command=controle)
 bouton.pack(pady=30)
-#pas encore terminé je le mettrai a jour régulièrement
+
 #affichage texte page principale
 
 Page_garde.mainloop()
+
+#pas encore terminé xD
